@@ -34,13 +34,6 @@ export class SectionController {
     return this.sectionService.getDisplayableSections();
   }
 
-  @Get('displayable/:type')
-  getDisplayableSectionsBySectionType(
-    @Param('type', new ParseEnumPipe(section_type)) type: section_type,
-  ) {
-    return this.sectionService.getDisplayableSectionsBySectionType(type);
-  }
-
   @Get('title/:title')
   getSectionByTitle(@Param('title') title: string) {
     return this.sectionService.getSectionByTitle(title);

@@ -44,6 +44,7 @@ export class SectionService {
     await this.sectionRepository.save(newSection);
     return newSection;
   }
+
   async getSectionById(id: number) {
     const section = await this.sectionRepository.findOneBy({
       id: id,

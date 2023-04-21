@@ -5,6 +5,7 @@ import { AuthModule } from './example/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SectionsModule } from './sections/sections.module';
+import { HobbiesModule } from './hobbies/hobbies.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { SectionsModule } from './sections/sections.module';
       inject: [ConfigService],
     }),
     SectionsModule,
+    HobbiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

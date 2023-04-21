@@ -26,9 +26,9 @@ export class CreateSectionDto {
 }
 
 export class UpdateSectionDto {
-  @IsNotEmpty()
-  @IsNumber()
-  id: number;
+  // @IsNotEmpty()
+  // @IsNumber()
+  // id: number;
 
   @IsNotEmpty()
   @IsString()

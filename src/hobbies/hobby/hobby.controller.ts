@@ -42,7 +42,7 @@ export class HobbyController {
   }
 
   @Delete('id/:id')
-  async deleteHobby(@Param('id') id: number) {
+  async deleteHobby(@Param('id', ParseIntPipe) id: number) {
     this.hobbyService.deleteHobby(id);
   }
 }

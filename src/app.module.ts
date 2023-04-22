@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SectionsModule } from './sections/sections.module';
 import { HobbiesModule } from './hobbies/hobbies.module';
+import { TechnologiesModule } from './technologies/technologies.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { HobbiesModule } from './hobbies/hobbies.module';
     }),
     SectionsModule,
     HobbiesModule,
+    TechnologiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -23,14 +23,6 @@ export class SectionService {
     });
   }
 
-  getSectionByTitle(title: string) {
-    return this.sectionRepository.find({
-      where: {
-        title: title,
-      },
-    });
-  }
-
   getSectionByType(sectionType: section_type) {
     return this.sectionRepository.find({
       where: {
@@ -48,6 +40,16 @@ export class SectionService {
   async getSectionById(id: number) {
     const section = await this.sectionRepository.findOneBy({
       id: id,
+    });
+    if (section) {
+      return section;
+    }
+    throw new HttpException('Section not found', HttpStatus.NOT_FOUND);
+  }
+
+  async getSectionByTitle(title: string) {
+    const section = await this.sectionRepository.findOneBy({
+      title: title,
     });
     if (section) {
       return section;

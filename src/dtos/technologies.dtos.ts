@@ -13,3 +13,17 @@ export class CreateTechnologyDto {
   @IsString()
   description: string;
 }
+
+export class UpdateTechnologyDto {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  logo: string;
+
+  @IsNotEmpty()
+  @IsString()
+  description: string;
+}

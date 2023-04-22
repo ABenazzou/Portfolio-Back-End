@@ -24,19 +24,9 @@ export class SectionController {
     return this.sectionService.getSections();
   }
 
-  @Get('id/:id')
-  async geSectionById(@Param('id', ParseIntPipe) id: number) {
-    return this.sectionService.getSectionById(id);
-  }
-
   @Get('displayable')
   getDisplayableSections() {
     return this.sectionService.getDisplayableSections();
-  }
-
-  @Get('title/:title')
-  getSectionByTitle(@Param('title') title: string) {
-    return this.sectionService.getSectionByTitle(title);
   }
 
   @Get('type/:type')
@@ -44,6 +34,16 @@ export class SectionController {
     @Param('type', new ParseEnumPipe(section_type)) type: section_type,
   ) {
     return this.sectionService.getSectionByType(type);
+  }
+
+  @Get('id/:id')
+  async geSectionById(@Param('id', ParseIntPipe) id: number) {
+    return this.sectionService.getSectionById(id);
+  }
+
+  @Get('title/:title')
+  async getSectionByTitle(@Param('title') title: string) {
+    return this.sectionService.getSectionByTitle(title);
   }
 
   @Post()
@@ -62,7 +62,7 @@ export class SectionController {
   }
 
   @Delete('id/:id')
-  async deleteSection(@Param('id') id: number) {
+  async deleteSection(@Param('id', ParseIntPipe) id: number) {
     this.sectionService.deleteSection(id);
   }
 }

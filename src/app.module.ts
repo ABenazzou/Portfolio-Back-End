@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SectionsModule } from './sections/sections.module';
 import { HobbiesModule } from './hobbies/hobbies.module';
 import { TechnologiesModule } from './technologies/technologies.module';
+import { ResumesModule } from './resumes/resumes.module';
 
 @Module({
   imports: [
@@ -24,12 +25,14 @@ import { TechnologiesModule } from './technologies/technologies.module';
         autoLoadEntities: true,
         synchronize: true,
         entities: ['./entities/*.ts'],
+        logging: ['query', 'error'],
       }),
       inject: [ConfigService],
     }),
     SectionsModule,
     HobbiesModule,
     TechnologiesModule,
+    ResumesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,7 +1,7 @@
 import {
   Column,
   Entity,
-  JoinTable,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,12 +13,9 @@ export class Resume {
   id: number;
 
   @Column()
-  domain_id: number;
-
-  @Column()
   pdf: string;
 
   @OneToOne(() => Domain, (domain) => domain.resume)
-  @JoinTable()
+  @JoinColumn()
   domain: Domain;
 }

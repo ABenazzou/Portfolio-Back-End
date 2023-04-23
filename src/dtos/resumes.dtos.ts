@@ -5,3 +5,9 @@ export class CreateResumeDto {
   @IsString()
   pdf: string;
 }
+
+export class UpdateResumeDto {
+  @IsNotEmpty()
+  @IsString()
+  pdf: string;
+}

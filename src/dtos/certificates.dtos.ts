@@ -1,4 +1,4 @@
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateCertificateDto {
   @IsNotEmpty()
@@ -18,6 +18,28 @@ export class CreateCertificateDto {
   thumbnail: string;
 
   @IsNotEmpty()
-  @IsDate()
+  @IsDateString()
+  date_obtained: Date;
+}
+
+export class UpdateCertificateDto {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  provider: string;
+
+  @IsNotEmpty()
+  @IsString()
+  validity_link: string;
+
+  @IsNotEmpty()
+  @IsString()
+  thumbnail: string;
+
+  @IsNotEmpty()
+  @IsDateString()
   date_obtained: Date;
 }

@@ -8,6 +8,7 @@ import { SectionsModule } from './sections/sections.module';
 import { HobbiesModule } from './hobbies/hobbies.module';
 import { TechnologiesModule } from './technologies/technologies.module';
 import { ResumesModule } from './resumes/resumes.module';
+import { CertificatesModule } from './certificates/certificates.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ResumesModule } from './resumes/resumes.module';
     HobbiesModule,
     TechnologiesModule,
     ResumesModule,
+    CertificatesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

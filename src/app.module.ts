@@ -9,6 +9,7 @@ import { HobbiesModule } from './hobbies/hobbies.module';
 import { TechnologiesModule } from './technologies/technologies.module';
 import { ResumesModule } from './resumes/resumes.module';
 import { CertificatesModule } from './certificates/certificates.module';
+import { DomainsModule } from './domains/domains.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { CertificatesModule } from './certificates/certificates.module';
     TechnologiesModule,
     ResumesModule,
     CertificatesModule,
+    DomainsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

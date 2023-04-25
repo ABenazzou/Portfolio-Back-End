@@ -41,6 +41,7 @@ export class ResumeService {
 
   async setResumeDomain(id: number, domainName: string) {
     // to update once the domain service has been built
+    // should also add setting resume by id
     const resume = await this.getResumeById(id);
     const domain = await this.domainRepository.findOne({
       where: {

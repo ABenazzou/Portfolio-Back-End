@@ -27,7 +27,7 @@ import { DomainsModule } from './domains/domains.module';
         autoLoadEntities: true,
         synchronize: true,
         entities: ['./entities/*.ts'],
-        logging: ['query', 'error'],
+        // logging: ['query', 'error'],
       }),
       inject: [ConfigService],
     }),

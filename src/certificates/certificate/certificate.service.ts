@@ -24,9 +24,6 @@ export class CertificateService {
   getSortedCertificates() {
     // order is either asc or desc
     return this.certificateRepository.find({
-      relations: {
-        domains: true,
-      },
       order: {
         date_obtained: 'DESC',
       },

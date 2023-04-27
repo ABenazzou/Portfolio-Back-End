@@ -13,3 +13,17 @@ export class CreateProjectDto {
   @IsNumber()
   visits_count: number;
 }
+
+export class UpdateProjectDto {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  thumbnail: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  visits_count: number;
+}

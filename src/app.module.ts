@@ -11,6 +11,8 @@ import { ResumesModule } from './resumes/resumes.module';
 import { CertificatesModule } from './certificates/certificates.module';
 import { DomainsModule } from './domains/domains.module';
 import { ProjectsModule } from './projects/projects.module';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { AuthorizationModule } from './authorization/authorization.module';
 
 @Module({
   imports: [
@@ -39,6 +41,8 @@ import { ProjectsModule } from './projects/projects.module';
     CertificatesModule,
     DomainsModule,
     ProjectsModule,
+    AuthenticationModule,
+    AuthorizationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

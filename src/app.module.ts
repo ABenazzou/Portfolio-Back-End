@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './example/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SectionsModule } from './sections/sections.module';
@@ -11,12 +10,9 @@ import { ResumesModule } from './resumes/resumes.module';
 import { CertificatesModule } from './certificates/certificates.module';
 import { DomainsModule } from './domains/domains.module';
 import { ProjectsModule } from './projects/projects.module';
-import { AuthenticationModule } from './authentication/authentication.module';
-import { AuthorizationModule } from './authorization/authorization.module';
 
 @Module({
   imports: [
-    AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -41,8 +37,6 @@ import { AuthorizationModule } from './authorization/authorization.module';
     CertificatesModule,
     DomainsModule,
     ProjectsModule,
-    AuthenticationModule,
-    AuthorizationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

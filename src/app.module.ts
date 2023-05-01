@@ -10,6 +10,7 @@ import { ResumesModule } from './resumes/resumes.module';
 import { CertificatesModule } from './certificates/certificates.module';
 import { DomainsModule } from './domains/domains.module';
 import { ProjectsModule } from './projects/projects.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { ProjectsModule } from './projects/projects.module';
     CertificatesModule,
     DomainsModule,
     ProjectsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

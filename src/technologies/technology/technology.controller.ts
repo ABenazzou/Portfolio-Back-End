@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ import {
   CreateTechnologyDto,
   UpdateTechnologyDto,
 } from 'src/dtos/technologies.dtos';
+import { AuthGuard } from 'src/auth/auth/auth.guard';
 
 @Controller('/api/technology')
 export class TechnologyController {
@@ -35,12 +37,16 @@ export class TechnologyController {
     return this.technologyService.getTechnologyByName(name);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Post()
   @UsePipes(ValidationPipe)
   async createTechnology(@Body() createTechnologyDto: CreateTechnologyDto) {
     return this.technologyService.createTechnology(createTechnologyDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Put('id/:id')
   @UsePipes(ValidationPipe)
   async updateTechnology(
@@ -50,6 +56,8 @@ export class TechnologyController {
     return this.technologyService.updateTechnology(id, updateTechnologyDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Delete('id/:id')
   async deleteTechnology(@Param('id', ParseIntPipe) id: number) {
     this.technologyService.deleteTechnology(id);

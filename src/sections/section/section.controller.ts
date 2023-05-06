@@ -8,12 +8,14 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { SectionService } from './section.service';
 import { CreateSectionDto, UpdateSectionDto } from 'src/dtos/sections.dtos';
 import { section_type } from 'src/entities/section';
+import { AuthGuard } from 'src/auth/auth/auth.guard';
 
 @Controller('api/section')
 export class SectionController {
@@ -46,12 +48,16 @@ export class SectionController {
     return this.sectionService.getSectionByTitle(title);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Post()
   @UsePipes(ValidationPipe)
   async createSection(@Body() createSectionDto: CreateSectionDto) {
     return this.sectionService.createSection(createSectionDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Put('id/:id')
   @UsePipes(ValidationPipe)
   async updateSection(
@@ -61,6 +67,8 @@ export class SectionController {
     return this.sectionService.updateSection(id, updateSectionDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Delete('id/:id')
   async deleteSection(@Param('id', ParseIntPipe) id: number) {
     this.sectionService.deleteSection(id);

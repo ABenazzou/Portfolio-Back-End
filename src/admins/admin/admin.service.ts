@@ -10,5 +10,9 @@ export class AdminService {
     private readonly adminRepository: Repository<Admin>,
   ) {}
 
-  // to implement as per need
+  async findOne(username: string) {
+    return this.adminRepository.findOne({
+      where: { username: username },
+    });
+  }
 }

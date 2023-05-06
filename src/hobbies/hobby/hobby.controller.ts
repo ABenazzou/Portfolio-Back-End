@@ -7,11 +7,13 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { HobbyService } from './hobby.service';
 import { CreateHobbyDto, UpdateHobbyDto } from 'src/dtos/hobbies.dto';
+import { AuthGuard } from 'src/auth/auth/auth.guard';
 
 @Controller('/api/hobby')
 export class HobbyController {
@@ -26,12 +28,16 @@ export class HobbyController {
     return this.hobbyService.getHobbyById(id);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Post()
   @UsePipes(ValidationPipe)
   async createHobby(@Body() createHobbyDto: CreateHobbyDto) {
     return this.hobbyService.createHobby(createHobbyDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Put('id/:id')
   @UsePipes(ValidationPipe)
   async updateHobby(
@@ -41,6 +47,8 @@ export class HobbyController {
     return this.hobbyService.updateHobby(id, updateHobbyDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Delete('id/:id')
   async deleteHobby(@Param('id', ParseIntPipe) id: number) {
     this.hobbyService.deleteHobby(id);

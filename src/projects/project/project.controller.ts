@@ -7,11 +7,13 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto, UpdateProjectDto } from 'src/dtos/projects.dtos';
+import { AuthGuard } from 'src/auth/auth/auth.guard';
 
 @Controller('api/project')
 export class ProjectController {
@@ -32,12 +34,16 @@ export class ProjectController {
     return this.projectService.getProjectById(id);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Post()
   @UsePipes(ValidationPipe)
   async createProject(@Body() createProjectDto: CreateProjectDto) {
     return this.projectService.createProject(createProjectDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Put('/id/:id')
   @UsePipes(ValidationPipe)
   async updateProject(
@@ -47,11 +53,15 @@ export class ProjectController {
     return this.projectService.updateProject(id, updateProjectDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Delete('/id/:id')
   async deleteProject(@Param('id', ParseIntPipe) id: number) {
     return this.projectService.deleteProject(id);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Post('/id/:id/technology/:technology')
   async addProjectTechnology(
     @Param('id', ParseIntPipe) id: number,
@@ -60,6 +70,8 @@ export class ProjectController {
     return this.projectService.addProjectTechnology(id, technologyName);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Post('/id/:id/domain/:domain')
   async addProjectDomain(
     @Param('id', ParseIntPipe) id: number,

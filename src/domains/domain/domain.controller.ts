@@ -7,11 +7,13 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { DomainService } from './domain.service';
 import { CreateDomainDto, UpdateDomainDto } from 'src/dtos/domains.dtos';
+import { AuthGuard } from 'src/auth/auth/auth.guard';
 
 @Controller('api/domain')
 export class DomainController {
@@ -32,12 +34,16 @@ export class DomainController {
     return this.domainService.getDomainByName(name);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Post()
   @UsePipes(ValidationPipe)
   async createDomain(@Body() createDomainDto: CreateDomainDto) {
     return this.domainService.createDomain(createDomainDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Put('id/:id')
   @UsePipes(ValidationPipe)
   async updateDomain(
@@ -47,6 +53,8 @@ export class DomainController {
     return this.domainService.updateDomain(id, updateDomainDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Delete('id/:id')
   async deleteDomain(@Param('id', ParseIntPipe) id: number) {
     this.domainService.deleteDomain(id);

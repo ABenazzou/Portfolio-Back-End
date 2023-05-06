@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ import {
   CreateCertificateDto,
   UpdateCertificateDto,
 } from 'src/dtos/certificates.dtos';
+import { AuthGuard } from 'src/auth/auth/auth.guard';
 
 @Controller('api/certificate')
 export class CertificateController {
@@ -35,12 +37,15 @@ export class CertificateController {
     return this.certificateService.getCertificateById(id);
   }
 
+  @UseGuards(AuthGuard)
   @Post()
   @UsePipes(ValidationPipe)
   async createCertificate(@Body() createCertificateDto: CreateCertificateDto) {
     return this.certificateService.createCertificate(createCertificateDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Put('id/:id')
   @UsePipes(ValidationPipe)
   async updateCertificate(
@@ -50,11 +55,15 @@ export class CertificateController {
     return this.certificateService.updateCertificate(id, updateCertificateDto);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Delete('id/:id')
   async deleteCertificate(@Param('id', ParseIntPipe) id: number) {
     this.certificateService.deleteCertificate(id);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Post('id/:id/domain/:domain')
   async addCertificateDomain(
     @Param('id', ParseIntPipe) id: number,

@@ -9,6 +9,7 @@ import { CertificatesModule } from './certificates/certificates.module';
 import { DomainsModule } from './domains/domains.module';
 import { ProjectsModule } from './projects/projects.module';
 import { AuthModule } from './auth/auth.module';
+import { AdminsModule } from './admins/admins.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { AuthModule } from './auth/auth.module';
     DomainsModule,
     ProjectsModule,
     AuthModule,
+    AdminsModule,
   ],
   controllers: [],
   providers: [],

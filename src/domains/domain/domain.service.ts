@@ -51,7 +51,14 @@ export class DomainService {
 
   async createDomain(createDomainDto: CreateDomainDto) {
     const newDomain = await this.domainRepository.create(createDomainDto);
-    await this.domainRepository.save(newDomain);
+    try {
+      await this.domainRepository.save(newDomain);
+    } catch (error) {
+      throw new HttpException(
+        'Domain Name already exists',
+        HttpStatus.CONFLICT,
+      );
+    }
     return newDomain;
   }
 

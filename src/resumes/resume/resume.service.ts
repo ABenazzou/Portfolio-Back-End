@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { DomainService } from 'src/domains/domain/domain.service';
 import { CreateResumeDto, UpdateResumeDto } from 'src/dtos/resumes.dtos';
-import { Domain } from 'src/entities/domain';
 import { Resume } from 'src/entities/resume';
 import { Repository } from 'typeorm';
 
@@ -10,8 +10,7 @@ export class ResumeService {
   constructor(
     @InjectRepository(Resume)
     private readonly resumeRepository: Repository<Resume>,
-    @InjectRepository(Domain)
-    private readonly domainRepository: Repository<Domain>,
+    private readonly domainService: DomainService,
   ) {}
 
   getResumes() {
@@ -40,14 +39,12 @@ export class ResumeService {
   }
 
   async setResumeDomain(id: number, domainName: string) {
-    // to update once the domain service has been built
     // should also add setting resume by id
+    if (domainName === undefined) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
     const resume = await this.getResumeById(id);
-    const domain = await this.domainRepository.findOne({
-      where: {
-        name: domainName,
-      },
-    });
+    const domain = await this.domainService.getDomainByName(domainName);
     if (domain) {
       resume.domain = domain;
       await this.resumeRepository.save(resume);

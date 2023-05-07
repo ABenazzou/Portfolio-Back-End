@@ -33,7 +33,14 @@ export class SectionService {
 
   async createSection(createSectionDto: CreateSectionDto) {
     const newSection = await this.sectionRepository.create(createSectionDto);
-    await this.sectionRepository.save(newSection);
+    try {
+      await this.sectionRepository.save(newSection);
+    } catch (error) {
+      throw new HttpException(
+        'Section Title already exists',
+        HttpStatus.CONFLICT,
+      );
+    }
     return newSection;
   }
 

@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -20,22 +21,19 @@ export class DomainController {
   constructor(private readonly domainService: DomainService) {}
 
   @Get()
-  getDomains() {
+  getDomains(@Query('name') name: string) {
+    if (name !== undefined) {
+      return this.domainService.getDomainByName(name);
+    }
     return this.domainService.getDomains();
   }
 
-  @Get('id/:id')
+  @Get(':id')
   async getDomainById(@Param('id', ParseIntPipe) id: number) {
     return this.domainService.getDomainById(id);
   }
 
-  @Get('name/:name')
-  async getDomainByName(@Param('name') name: string) {
-    return this.domainService.getDomainByName(name);
-  }
-
   @UseGuards(AuthGuard)
-  @Post()
   @Post()
   @UsePipes(ValidationPipe)
   async createDomain(@Body() createDomainDto: CreateDomainDto) {
@@ -43,8 +41,7 @@ export class DomainController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Put('id/:id')
+  @Put(':id')
   @UsePipes(ValidationPipe)
   async updateDomain(
     @Param('id', ParseIntPipe) id: number,
@@ -54,8 +51,7 @@ export class DomainController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Delete('id/:id')
+  @Delete(':id')
   async deleteDomain(@Param('id', ParseIntPipe) id: number) {
     this.domainService.deleteDomain(id);
   }

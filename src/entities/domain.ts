@@ -22,12 +22,18 @@ export class Domain {
   @Column()
   logo: string;
 
-  @ManyToMany(() => Project, (project) => project.domains)
+  @ManyToMany(() => Project, (project) => project.domains, {
+    onDelete: 'CASCADE',
+  })
   projects: Project[];
 
-  @ManyToMany(() => Certificate, (certificate) => certificate.domains)
+  @ManyToMany(() => Certificate, (certificate) => certificate.domains, {
+    onDelete: 'CASCADE',
+  })
   certificates: Certificate[];
 
-  @OneToOne(() => Resume, (resume) => resume.domain)
+  @OneToOne(() => Resume, (resume) => resume.domain, {
+    onDelete: 'CASCADE',
+  })
   resume: Resume;
 }

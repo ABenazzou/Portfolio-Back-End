@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { DomainService } from 'src/domains/domain/domain.service';
 import { CreateProjectDto, UpdateProjectDto } from 'src/dtos/projects.dtos';
-import { Domain } from 'src/entities/domain';
 import { Project } from 'src/entities/project';
-import { Technology } from 'src/entities/technology';
+import { TechnologyService } from 'src/technologies/technology/technology.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -11,10 +11,8 @@ export class ProjectService {
   constructor(
     @InjectRepository(Project)
     private readonly projectRepository: Repository<Project>,
-    @InjectRepository(Technology)
-    private readonly technologyRepository: Repository<Technology>,
-    @InjectRepository(Domain)
-    private readonly domainRepository: Repository<Domain>,
+    private readonly technologyService: TechnologyService,
+    private readonly domainService: DomainService,
   ) {}
 
   getProjects() {
@@ -47,17 +45,22 @@ export class ProjectService {
 
   async createProject(createProjectDto: CreateProjectDto) {
     const newProject = await this.projectRepository.create(createProjectDto);
-    await this.projectRepository.save(newProject);
+    try {
+      await this.projectRepository.save(newProject);
+    } catch (error) {
+      throw new HttpException(
+        'Project Name already exists',
+        HttpStatus.CONFLICT,
+      );
+    }
     return newProject;
   }
 
   async addProjectTechnology(id: number, technologyName: string) {
     const project = await this.getProjectById(id);
-    const technology = await this.technologyRepository.findOne({
-      where: {
-        name: technologyName,
-      },
-    });
+    const technology = await this.technologyService.getTechnologyByName(
+      technologyName,
+    );
     if (technology) {
       project.technologies.push(technology);
       await this.projectRepository.save(project);
@@ -68,11 +71,7 @@ export class ProjectService {
 
   async addProjectDomain(id: number, domainName: string) {
     const project = await this.getProjectById(id);
-    const domain = await this.domainRepository.findOne({
-      where: {
-        name: domainName,
-      },
-    });
+    const domain = await this.domainService.getDomainByName(domainName);
     if (domain) {
       project.domains.push(domain);
       await this.projectRepository.save(project);

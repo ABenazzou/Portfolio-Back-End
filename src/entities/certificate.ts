@@ -31,7 +31,9 @@ export class Certificate {
   @Column()
   date_obtained: Date;
 
-  @ManyToMany(() => Domain, (domain) => domain.certificates)
+  @ManyToMany(() => Domain, (domain) => domain.certificates, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable()
   domains: Domain[];
 }

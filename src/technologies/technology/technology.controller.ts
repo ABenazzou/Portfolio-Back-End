@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -23,22 +24,19 @@ export class TechnologyController {
   constructor(private readonly technologyService: TechnologyService) {}
 
   @Get()
-  getTechnologies() {
+  async getTechnologies(@Query('technologyName') technologyName: string) {
+    if (technologyName !== undefined) {
+      return this.technologyService.getTechnologyByName(technologyName);
+    }
     return this.technologyService.getTechnologies();
   }
 
-  @Get('/id/:id')
+  @Get(':id')
   async getTechnologyById(@Param('id', ParseIntPipe) id: number) {
     return this.technologyService.getTechnologyById(id);
   }
 
-  @Get('/name/:name')
-  async getTechnologyByName(@Param('name') name: string) {
-    return this.technologyService.getTechnologyByName(name);
-  }
-
   @UseGuards(AuthGuard)
-  @Post()
   @Post()
   @UsePipes(ValidationPipe)
   async createTechnology(@Body() createTechnologyDto: CreateTechnologyDto) {
@@ -46,8 +44,7 @@ export class TechnologyController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Put('id/:id')
+  @Put(':id')
   @UsePipes(ValidationPipe)
   async updateTechnology(
     @Param('id', ParseIntPipe) id: number,
@@ -57,8 +54,7 @@ export class TechnologyController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Delete('id/:id')
+  @Delete(':id')
   async deleteTechnology(@Param('id', ParseIntPipe) id: number) {
     this.technologyService.deleteTechnology(id);
   }

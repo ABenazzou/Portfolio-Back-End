@@ -17,7 +17,11 @@ export class HobbyService {
 
   async createHobby(createHobbyDto: CreateHobbyDto) {
     const newHobby = await this.hobbyRepository.create(createHobbyDto);
-    await this.hobbyRepository.save(newHobby);
+    try {
+      await this.hobbyRepository.save(newHobby);
+    } catch (error) {
+      throw new HttpException('Hobby Name Already Exists', HttpStatus.CONFLICT);
+    }
     return newHobby;
   }
 

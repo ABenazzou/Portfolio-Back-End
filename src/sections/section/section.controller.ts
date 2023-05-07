@@ -3,11 +3,14 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   ParseEnumPipe,
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -22,34 +25,36 @@ export class SectionController {
   constructor(private readonly sectionService: SectionService) {}
 
   @Get()
-  getSections() {
+  async getSections(
+    @Query('displayable') displayable: string,
+    @Query('title') title: string,
+  ) {
+    if (displayable !== undefined && title !== undefined) {
+      throw new HttpException(
+        'Cannot combine displayable and title filters as title is unique',
+        HttpStatus.BAD_REQUEST,
+      );
+    } else if (title !== undefined) {
+      return this.sectionService.getSectionByTitle(title);
+    } else if (displayable !== undefined) {
+      return this.sectionService.getDisplayableSections();
+    }
     return this.sectionService.getSections();
   }
 
-  @Get('displayable')
-  getDisplayableSections() {
-    return this.sectionService.getDisplayableSections();
-  }
-
   @Get('type/:type')
-  getSectionByType(
+  getSectionsByType(
     @Param('type', new ParseEnumPipe(section_type)) type: section_type,
   ) {
     return this.sectionService.getSectionByType(type);
   }
 
-  @Get('id/:id')
+  @Get(':id')
   async geSectionById(@Param('id', ParseIntPipe) id: number) {
     return this.sectionService.getSectionById(id);
   }
 
-  @Get('title/:title')
-  async getSectionByTitle(@Param('title') title: string) {
-    return this.sectionService.getSectionByTitle(title);
-  }
-
   @UseGuards(AuthGuard)
-  @Post()
   @Post()
   @UsePipes(ValidationPipe)
   async createSection(@Body() createSectionDto: CreateSectionDto) {
@@ -57,8 +62,7 @@ export class SectionController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Put('id/:id')
+  @Put(':id')
   @UsePipes(ValidationPipe)
   async updateSection(
     @Param('id', ParseIntPipe) id: number,
@@ -68,8 +72,7 @@ export class SectionController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Delete('id/:id')
+  @Delete(':id')
   async deleteSection(@Param('id', ParseIntPipe) id: number) {
     this.sectionService.deleteSection(id);
   }

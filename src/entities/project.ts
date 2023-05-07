@@ -24,11 +24,15 @@ export class Project {
   @Column()
   visits_count: number;
 
-  @ManyToMany(() => Technology, (technology) => technology.projects)
+  @ManyToMany(() => Technology, (technology) => technology.projects, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable()
   technologies: Technology[];
 
-  @ManyToMany(() => Domain, (domain) => domain.projects)
+  @ManyToMany(() => Domain, (domain) => domain.projects, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable()
   domains: Domain[];
 }

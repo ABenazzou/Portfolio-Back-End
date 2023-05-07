@@ -52,7 +52,14 @@ export class TechnologyService {
     const newTechnology = await this.technologyRepository.create(
       createTechnologyDto,
     );
-    await this.technologyRepository.save(newTechnology);
+    try {
+      await this.technologyRepository.save(newTechnology);
+    } catch (error) {
+      throw new HttpException(
+        'Technology Name already exists',
+        HttpStatus.CONFLICT,
+      );
+    }
     return newTechnology;
   }
 

@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Put,
+  Query,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -25,13 +26,12 @@ export class ResumeController {
     return this.resumeService.getResumes();
   }
 
-  @Get('id/:id')
+  @Get(':id')
   async getResumeById(@Param('id', ParseIntPipe) id: number) {
     return this.resumeService.getResumeById(id);
   }
 
   @UseGuards(AuthGuard)
-  @Post()
   @Post()
   @UsePipes(ValidationPipe)
   async createResume(@Body() createResumeDto: CreateResumeDto) {
@@ -39,8 +39,7 @@ export class ResumeController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Put('id/:id')
+  @Put(':id')
   @UsePipes(ValidationPipe)
   async updateResume(
     @Param('id', ParseIntPipe) id: number,
@@ -50,18 +49,16 @@ export class ResumeController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Delete('id/:id')
+  @Delete(':id')
   async deleteResume(@Param('id', ParseIntPipe) id: number) {
     this.resumeService.deleteResume(id);
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Patch('id/:id/domain/:domain')
+  @Patch(':id')
   async setResumeDomain(
     @Param('id', ParseIntPipe) id: number,
-    @Param('domain') domainName: string,
+    @Query('domainName') domainName: string,
   ) {
     return this.resumeService.setResumeDomain(id, domainName);
   }

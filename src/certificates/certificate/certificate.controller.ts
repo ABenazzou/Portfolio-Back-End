@@ -5,8 +5,10 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Put,
+  Query,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -32,7 +34,7 @@ export class CertificateController {
     return this.certificateService.getSortedCertificates();
   }
 
-  @Get('id/:id')
+  @Get(':id')
   async getCertificateById(@Param('id', ParseIntPipe) id: number) {
     return this.certificateService.getCertificateById(id);
   }
@@ -45,8 +47,7 @@ export class CertificateController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Put('id/:id')
+  @Put(':id')
   @UsePipes(ValidationPipe)
   async updateCertificate(
     @Param('id', ParseIntPipe) id: number,
@@ -56,18 +57,16 @@ export class CertificateController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Delete('id/:id')
+  @Delete(':id')
   async deleteCertificate(@Param('id', ParseIntPipe) id: number) {
     this.certificateService.deleteCertificate(id);
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Post('id/:id/domain/:domain')
+  @Patch(':id')
   async addCertificateDomain(
     @Param('id', ParseIntPipe) id: number,
-    @Param('domain') domainName: string,
+    @Query('domainName') domainName: string,
   ) {
     return this.certificateService.addCertificateDomain(id, domainName);
   }

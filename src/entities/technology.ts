@@ -17,6 +17,8 @@ export class Technology {
   @Column()
   description: string;
 
-  @ManyToMany(() => Project, (project) => project.technologies)
+  @ManyToMany(() => Project, (project) => project.technologies, {
+    onDelete: 'CASCADE',
+  })
   projects: Project[];
 }

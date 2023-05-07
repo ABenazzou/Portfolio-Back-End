@@ -23,13 +23,12 @@ export class HobbyController {
     return this.hobbyService.getHobbies();
   }
 
-  @Get('id/:id')
+  @Get(':id')
   async getHobbyById(@Param('id', ParseIntPipe) id: number) {
     return this.hobbyService.getHobbyById(id);
   }
 
   @UseGuards(AuthGuard)
-  @Post()
   @Post()
   @UsePipes(ValidationPipe)
   async createHobby(@Body() createHobbyDto: CreateHobbyDto) {
@@ -37,8 +36,7 @@ export class HobbyController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Put('id/:id')
+  @Put(':id')
   @UsePipes(ValidationPipe)
   async updateHobby(
     @Param('id', ParseIntPipe) id: number,
@@ -48,8 +46,7 @@ export class HobbyController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Delete('id/:id')
+  @Delete(':id')
   async deleteHobby(@Param('id', ParseIntPipe) id: number) {
     this.hobbyService.deleteHobby(id);
   }

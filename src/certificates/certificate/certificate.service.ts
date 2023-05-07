@@ -1,11 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { DomainService } from 'src/domains/domain/domain.service';
 import {
   CreateCertificateDto,
   UpdateCertificateDto,
 } from 'src/dtos/certificates.dtos';
 import { Certificate } from 'src/entities/certificate';
-import { Domain } from 'src/entities/domain';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -13,8 +13,7 @@ export class CertificateService {
   constructor(
     @InjectRepository(Certificate)
     private readonly certificateRepository: Repository<Certificate>,
-    @InjectRepository(Domain)
-    private readonly domainRepository: Repository<Domain>,
+    private readonly domainService: DomainService,
   ) {}
 
   getCertificates() {
@@ -49,18 +48,23 @@ export class CertificateService {
     const newCertificate = await this.certificateRepository.create(
       createCertificateDto,
     );
-    await this.certificateRepository.save(newCertificate);
+    try {
+      await this.certificateRepository.save(newCertificate);
+    } catch (error) {
+      throw new HttpException(
+        'Certificate name or link already exists',
+        HttpStatus.CONFLICT,
+      );
+    }
     return newCertificate;
   }
 
   async addCertificateDomain(id: number, domainName: string) {
-    // to update once the domain service has been built
+    if (domainName === undefined) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
     const certificate = await this.getCertificateById(id);
-    const domain = await this.domainRepository.findOne({
-      where: {
-        name: domainName,
-      },
-    });
+    const domain = await this.domainService.getDomainByName(domainName);
     if (domain) {
       certificate.domains.push(domain);
       await this.certificateRepository.save(certificate);

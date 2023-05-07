@@ -3,10 +3,14 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Put,
+  Query,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -14,10 +18,16 @@ import {
 import { ProjectService } from './project.service';
 import { CreateProjectDto, UpdateProjectDto } from 'src/dtos/projects.dtos';
 import { AuthGuard } from 'src/auth/auth/auth.guard';
+import { DomainService } from 'src/domains/domain/domain.service';
+import { TechnologyService } from 'src/technologies/technology/technology.service';
 
 @Controller('api/project')
 export class ProjectController {
-  constructor(private readonly projectService: ProjectService) {}
+  constructor(
+    private readonly projectService: ProjectService,
+    private readonly domainService: DomainService,
+    private readonly technologyService: TechnologyService,
+  ) {}
 
   @Get()
   getProjects() {
@@ -29,13 +39,12 @@ export class ProjectController {
     return this.projectService.getSortedProjects();
   }
 
-  @Get('id/:id')
+  @Get(':id')
   async getProjectById(@Param('id', ParseIntPipe) id: number) {
     return this.projectService.getProjectById(id);
   }
 
   @UseGuards(AuthGuard)
-  @Post()
   @Post()
   @UsePipes(ValidationPipe)
   async createProject(@Body() createProjectDto: CreateProjectDto) {
@@ -43,8 +52,7 @@ export class ProjectController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Put('/id/:id')
+  @Put(':id')
   @UsePipes(ValidationPipe)
   async updateProject(
     @Param('id', ParseIntPipe) id: number,
@@ -54,29 +62,33 @@ export class ProjectController {
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Delete('/id/:id')
+  @Delete(':id')
   async deleteProject(@Param('id', ParseIntPipe) id: number) {
     return this.projectService.deleteProject(id);
   }
 
   @UseGuards(AuthGuard)
-  @Post()
-  @Post('/id/:id/technology/:technology')
-  async addProjectTechnology(
+  @Patch(':id')
+  async addProjectTechnologyOrDomain(
     @Param('id', ParseIntPipe) id: number,
-    @Param('technology') technologyName: string,
+    @Query('technologyName') technologyName: string,
+    @Query('domainName') domainName: string,
   ) {
-    return this.projectService.addProjectTechnology(id, technologyName);
-  }
-
-  @UseGuards(AuthGuard)
-  @Post()
-  @Post('/id/:id/domain/:domain')
-  async addProjectDomain(
-    @Param('id', ParseIntPipe) id: number,
-    @Param('domain') domainName: string,
-  ) {
-    return this.projectService.addProjectDomain(id, domainName);
+    if (domainName !== undefined && technologyName !== undefined) {
+      try {
+        await this.domainService.getDomainByName(domainName);
+        await this.technologyService.getTechnologyByName(technologyName);
+      } catch (error) {
+        throw error;
+      }
+      await this.projectService.addProjectTechnology(id, technologyName);
+      await this.projectService.addProjectDomain(id, domainName);
+      return this.projectService.getProjectById(id);
+    } else if (domainName !== undefined) {
+      return this.projectService.addProjectDomain(id, domainName);
+    } else if (technologyName !== undefined) {
+      return this.projectService.addProjectTechnology(id, technologyName);
+    }
+    throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
   }
 }

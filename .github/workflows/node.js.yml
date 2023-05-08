@@ -22,6 +22,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Build
+    - name: SetupBackend
       run: |
         npm install
+        npm run build
+        pm2 restart PortfolioBackendAPI
+        

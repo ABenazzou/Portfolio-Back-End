@@ -22,9 +22,18 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: SetupBackend
+    - name: installDependencies
+      run: npm install
+
+    - name: testApplication
+      run: npm run test
+
+    - name: deployApplication
+      if: sucess()
       run: |
-        npm install
         npm run build
         pm2 restart PortfolioBackendAPI
+
+    - name: deployFailed
+      if: failure()
         

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   UsePipes,
   ValidationPipe,
@@ -16,5 +17,10 @@ export class AuthController {
   @UsePipes(ValidationPipe)
   signIn(@Body() signInAdminDto: SignInAdminDTO) {
     return this.authService.signIn(signInAdminDto);
+  }
+
+  @Get('hello')
+  test() {
+    return 'hello';
   }
 }

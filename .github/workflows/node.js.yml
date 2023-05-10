@@ -35,5 +35,6 @@ jobs:
         pm2 restart PortfolioBackendAPI
 
     - name: deployFailed
+      run: exit 1
       if: failure()
         

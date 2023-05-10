@@ -34,7 +34,7 @@ jobs:
         npm run build
         pm2 restart PortfolioBackendAPI
 
-    - name: deployFailed
+    - name: exitBottleneck
       run: exit 1
       if: failure()
         

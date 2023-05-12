@@ -1,4 +1,4 @@
-import { JwtSecretRequestType, JwtService } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from './auth.guard';
 import { ConfigService } from '@nestjs/config';
 

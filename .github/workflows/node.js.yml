@@ -22,13 +22,16 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: installDependencies
+    - name: Install Dependencies
       run: npm install
 
-    - name: testApplication
+    - name: Unit Tests
       run: npm run test
+    
+    - name: End To End Tests
+      run: npm run test:e2e
 
-    - name: deployApplication
+    - name: Deploy Application
       if: success()
       run: |
         npm run build

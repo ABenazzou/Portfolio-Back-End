@@ -15,7 +15,6 @@ describe('ResumeService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ResumeService,
-        JwtService,
         {
           provide: RESUME_REPOSITORY_TOKEN,
           useValue: {

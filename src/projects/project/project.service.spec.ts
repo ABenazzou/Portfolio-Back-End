@@ -28,7 +28,6 @@ describe('ProjectService', () => {
             getDomainByName: jest.fn(),
           },
         },
-        JwtService,
         {
           provide: PROJECT_REPOSITORY_TOKEN,
           useValue: {

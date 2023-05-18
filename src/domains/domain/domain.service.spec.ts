@@ -14,7 +14,6 @@ describe('DomainService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         DomainService,
-        JwtService,
         {
           provide: DOMAIN_REPOSITORY_TOKEN,
           useValue: {

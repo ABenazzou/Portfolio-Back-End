@@ -21,7 +21,6 @@ describe('CertificateService', () => {
             getDomainByName: jest.fn(),
           },
         },
-        JwtService,
         {
           provide: CERTIFICATE_REPOSITORY_TOKEN,
           useValue: {

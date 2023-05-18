@@ -14,7 +14,6 @@ describe('HobbyService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         HobbyService,
-        JwtService,
         {
           provide: HOBBY_REPOSITORY_TOKEN,
           useValue: {

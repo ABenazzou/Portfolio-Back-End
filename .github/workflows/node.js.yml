@@ -8,6 +8,13 @@ on:
 
 jobs:
   build:
+    env:
+      DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD}}
+      DATABASE_USER: ${{ secrets.DATABASE_USER }}
+      JWT_SECRET_CONSTANT: ${{ secrets.JWT_SECRET_CONSTANT }}
+      NODE_ENV: ${{ secrets.NODE_ENV }}
+
     runs-on: self-hosted
 
     strategy:
@@ -35,6 +42,7 @@ jobs:
       if: success()
       run: |
         npm run build
+        cp -r dist/* ~/Desktop/Portfolio-Backend-Deploy
         pm2 restart PortfolioBackendAPI
 
     - name: Exit Bottleneck

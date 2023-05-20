@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 
@@ -18,7 +18,7 @@ afterAll(() => {
 
 describe('Root route controller (e2e)', () => {
   it('/ (GET)', () => {
-    return request(app.getHttpServer()).get('/').expect(404);
+    return request(app.getHttpServer()).get('/').expect(HttpStatus.NOT_FOUND);
   });
 });
 
@@ -34,6 +34,6 @@ describe('Domain route controller (e2e)', () => {
         name: 'Web Development',
         logo: 'src/logos/web-development.png',
       })
-      .expect(401);
+      .expect(HttpStatus.UNAUTHORIZED);
   });
 });

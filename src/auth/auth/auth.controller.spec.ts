@@ -44,7 +44,10 @@ describe('AuthController', () => {
         password: 'Mock Password',
       });
 
-      expect(signIn).toHaveBeenCalled();
+      expect(signIn).toHaveBeenCalledWith({
+        username: 'Mock User',
+        password: 'Mock Password',
+      });
       expect(token).toEqual({ access_token: 'Mock Access Token' });
     });
 
@@ -60,7 +63,10 @@ describe('AuthController', () => {
       } catch (e) {
         expect(e).toEqual(new UnauthorizedException());
       }
-      expect(signIn).toHaveBeenCalled();
+      expect(signIn).toHaveBeenCalledWith({
+        username: 'Mock User',
+        password: 'Wrong Password',
+      });
       expect(token).toBe(undefined);
     });
   });

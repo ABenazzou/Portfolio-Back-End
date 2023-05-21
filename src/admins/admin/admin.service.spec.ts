@@ -37,7 +37,7 @@ describe('AdminService', () => {
   });
 
   describe('findOne', () => {
-    it('should call admin repository method on where specified username', async () => {
+    it('should call admin repository method', async () => {
       const findOne = jest.spyOn(adminRepository, 'findOne');
       const admin = await service.findOne('Mock User');
 

@@ -42,7 +42,7 @@ jobs:
       if: success()
       run: |
         npm run build
-        cp -r . ~/Desktop/Portfolio-Backend-Deploy
+        sudo cp -r . ~/Desktop/Portfolio-Backend-Deploy
         pm2 restart PortfolioBackendAPI
 
     - name: Exit Bottleneck

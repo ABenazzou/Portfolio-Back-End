@@ -16,7 +16,9 @@ describe('AdminService', () => {
         {
           provide: ADMIN_REPOSITORY_TOKEN,
           useValue: {
-            findOne: jest.fn(),
+            findOne: jest.fn((x) => {
+              return { username: x, password: 'Mock Password' };
+            }),
           },
         },
       ],
@@ -32,5 +34,18 @@ describe('AdminService', () => {
 
   it('adminRepository should be defined', () => {
     expect(adminRepository).toBeDefined();
+  });
+
+  describe('findOne', () => {
+    it('should call admin repository method on where specified username', async () => {
+      const findOne = jest.spyOn(adminRepository, 'findOne');
+      const admin = await service.findOne('Mock User');
+
+      expect(findOne).toHaveBeenCalled();
+      expect(admin).toEqual({
+        username: { where: { username: 'Mock User' } },
+        password: 'Mock Password',
+      });
+    });
   });
 });

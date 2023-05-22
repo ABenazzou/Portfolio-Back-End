@@ -58,8 +58,8 @@ export class ResumeController {
   @Patch(':id')
   async setResumeDomain(
     @Param('id', ParseIntPipe) id: number,
-    @Query('domainName') domainName: string,
+    @Query('domainId') domainId: number,
   ) {
-    return this.resumeService.setResumeDomain(id, domainName);
+    return this.resumeService.setResumeDomain(id, domainId);
   }
 }

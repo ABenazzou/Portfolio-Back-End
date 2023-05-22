@@ -59,6 +59,21 @@ export class CertificateService {
     return newCertificate;
   }
 
+  async addCertificateDomain(id: number, domainId: number) {
+    if (domainId === undefined) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+    const certificate = await this.getCertificateById(id);
+    const domain = await this.domainService.getDomainById(domainId);
+    if (domain) {
+      certificate.domains.push(domain);
+      await this.certificateRepository.save(certificate);
+      return this.getCertificateById(id);
+    }
+    throw new HttpException('Domain not found', HttpStatus.NOT_FOUND);
+  }
+  /*
+  doing it by ID is faster because of index lookup
   async addCertificateDomain(id: number, domainName: string) {
     if (domainName === undefined) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
@@ -72,7 +87,7 @@ export class CertificateService {
     }
     throw new HttpException('Domain not found', HttpStatus.NOT_FOUND);
   }
-
+  */
   async updateCertificate(
     id: number,
     updateCertificateDto: UpdateCertificateDto,

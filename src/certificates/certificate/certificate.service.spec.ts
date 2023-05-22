@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CertificateService } from './certificate.service';
 import { DomainService } from 'src/domains/domain/domain.service';
-import { JwtService } from '@nestjs/jwt';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Certificate } from 'src/entities/certificate';
 import { Repository } from 'typeorm';

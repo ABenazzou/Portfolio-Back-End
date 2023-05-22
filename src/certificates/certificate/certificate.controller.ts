@@ -61,7 +61,7 @@ export class CertificateController {
   async deleteCertificate(@Param('id', ParseIntPipe) id: number) {
     this.certificateService.deleteCertificate(id);
   }
-
+  /*
   @UseGuards(AuthGuard)
   @Patch(':id')
   async addCertificateDomain(
@@ -69,5 +69,15 @@ export class CertificateController {
     @Query('domainName') domainName: string,
   ) {
     return this.certificateService.addCertificateDomain(id, domainName);
+  }
+  */
+
+  @UseGuards(AuthGuard)
+  @Patch(':id')
+  async addCertificateDomain(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('domainId', ParseIntPipe) domainId: number,
+  ) {
+    return this.certificateService.addCertificateDomain(id, domainId);
   }
 }

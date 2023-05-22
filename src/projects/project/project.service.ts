@@ -56,6 +56,21 @@ export class ProjectService {
     return newProject;
   }
 
+  async addProjectTechnology(id: number, technologyId: number) {
+    const project = await this.getProjectById(id);
+    const technology = await this.technologyService.getTechnologyById(
+      technologyId,
+    );
+    if (technology) {
+      project.technologies.push(technology);
+      await this.projectRepository.save(project);
+      return this.getProjectById(id);
+    }
+    throw new HttpException('Technology not found', HttpStatus.NOT_FOUND);
+  }
+
+  /*
+  By Id is faster due to index lookup
   async addProjectTechnology(id: number, technologyName: string) {
     const project = await this.getProjectById(id);
     const technology = await this.technologyService.getTechnologyByName(
@@ -68,7 +83,20 @@ export class ProjectService {
     }
     throw new HttpException('Technology not found', HttpStatus.NOT_FOUND);
   }
+  */
 
+  async addProjectDomain(id: number, domainId: number) {
+    const project = await this.getProjectById(id);
+    const domain = await this.domainService.getDomainById(domainId);
+    if (domain) {
+      project.domains.push(domain);
+      await this.projectRepository.save(project);
+      return this.getProjectById(id);
+    }
+    throw new HttpException('Domain not found', HttpStatus.NOT_FOUND);
+  }
+  /*
+  By Id is faster due to lookup 
   async addProjectDomain(id: number, domainName: string) {
     const project = await this.getProjectById(id);
     const domain = await this.domainService.getDomainByName(domainName);
@@ -79,6 +107,7 @@ export class ProjectService {
     }
     throw new HttpException('Domain not found', HttpStatus.NOT_FOUND);
   }
+  */
 
   async updateProject(id: number, updateProjectDto: UpdateProjectDto) {
     await this.projectRepository.update(id, updateProjectDto);

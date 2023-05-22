@@ -38,13 +38,12 @@ export class ResumeService {
     return newResume;
   }
 
-  async setResumeDomain(id: number, domainName: string) {
-    // should also add setting resume by id
-    if (domainName === undefined) {
+  async setResumeDomain(id: number, domainId: number) {
+    if (domainId === undefined) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
     const resume = await this.getResumeById(id);
-    const domain = await this.domainService.getDomainByName(domainName);
+    const domain = await this.domainService.getDomainById(domainId);
     if (domain) {
       resume.domain = domain;
       await this.resumeRepository.save(resume);

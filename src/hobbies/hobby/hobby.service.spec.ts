@@ -3,7 +3,6 @@ import { HobbyService } from './hobby.service';
 import { Repository } from 'typeorm';
 import { Hobby } from 'src/entities/hobby';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { JwtService } from '@nestjs/jwt';
 
 describe('HobbyService', () => {
   let service: HobbyService;

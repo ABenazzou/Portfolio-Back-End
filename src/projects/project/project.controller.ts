@@ -71,23 +71,23 @@ export class ProjectController {
   @Patch(':id')
   async addProjectTechnologyOrDomain(
     @Param('id', ParseIntPipe) id: number,
-    @Query('technologyName') technologyName: string,
-    @Query('domainName') domainName: string,
+    @Query('technologyId', ParseIntPipe) technologyId: number,
+    @Query('domainId', ParseIntPipe) domainId: number,
   ) {
-    if (domainName !== undefined && technologyName !== undefined) {
+    if (domainId !== undefined && technologyId !== undefined) {
       try {
-        await this.domainService.getDomainByName(domainName);
-        await this.technologyService.getTechnologyByName(technologyName);
+        await this.domainService.getDomainById(domainId);
+        await this.technologyService.getTechnologyById(technologyId);
       } catch (error) {
         throw error;
       }
-      await this.projectService.addProjectTechnology(id, technologyName);
-      await this.projectService.addProjectDomain(id, domainName);
+      await this.projectService.addProjectTechnology(id, technologyId);
+      await this.projectService.addProjectDomain(id, domainId);
       return this.projectService.getProjectById(id);
-    } else if (domainName !== undefined) {
-      return this.projectService.addProjectDomain(id, domainName);
-    } else if (technologyName !== undefined) {
-      return this.projectService.addProjectTechnology(id, technologyName);
+    } else if (domainId !== undefined) {
+      return this.projectService.addProjectDomain(id, domainId);
+    } else if (technologyId !== undefined) {
+      return this.projectService.addProjectTechnology(id, technologyId);
     }
     throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
   }

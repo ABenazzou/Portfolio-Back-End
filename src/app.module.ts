@@ -25,7 +25,7 @@ import { BiographyModule } from './biography/biography.module';
         password: configService.get('DATABASE_PASSWORD'),
         database: 'portfolio',
         autoLoadEntities: true,
-        //synchronize: true,
+        synchronize: true,
         entities: ['./entities/*.ts'],
         // logging: ['query', 'error'],
       }),

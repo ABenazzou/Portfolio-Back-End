@@ -19,8 +19,8 @@ export class BiographyService {
   getSortedBiography() {
     return this.biographyRepository.find({
       order: {
-        start_year: 'DESC',
         end_year: 'DESC',
+        start_year: 'DESC',
       },
     });
   }

@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   if (process.env.NODE_ENV === 'dev') {
     const config = new DocumentBuilder()
       .setTitle('Portfolio Backend API')

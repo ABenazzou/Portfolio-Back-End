@@ -104,3 +104,11 @@ describe('Technology route controller (e2e)', () => {
       .expect(HttpStatus.UNAUTHORIZED);
   });
 });
+
+describe('Biography route controller (e2e)', () => {
+  it('/api/biography (DELETE)', () => {
+    return request(app.getHttpServer())
+      .delete('/api/biography/1')
+      .expect(HttpStatus.UNAUTHORIZED);
+  });
+});

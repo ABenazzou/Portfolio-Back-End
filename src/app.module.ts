@@ -10,6 +10,7 @@ import { DomainsModule } from './domains/domains.module';
 import { ProjectsModule } from './projects/projects.module';
 import { AuthModule } from './auth/auth.module';
 import { AdminsModule } from './admins/admins.module';
+import { BiographyModule } from './biography/biography.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { AdminsModule } from './admins/admins.module';
     ProjectsModule,
     AuthModule,
     AdminsModule,
+    BiographyModule,
   ],
   controllers: [],
   providers: [],

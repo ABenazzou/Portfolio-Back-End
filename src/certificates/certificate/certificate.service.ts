@@ -26,6 +26,7 @@ export class CertificateService {
       order: {
         date_obtained: 'DESC',
       },
+      take: 5,
     });
   }
 

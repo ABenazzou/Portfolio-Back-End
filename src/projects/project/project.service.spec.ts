@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProjectService } from './project.service';
-import { JwtService } from '@nestjs/jwt';
 import { Project } from 'src/entities/project';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

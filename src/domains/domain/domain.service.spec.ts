@@ -3,7 +3,6 @@ import { DomainService } from './domain.service';
 import { Repository } from 'typeorm';
 import { Domain } from 'src/entities/domain';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { JwtService } from '@nestjs/jwt';
 
 describe('DomainService', () => {
   let service: DomainService;

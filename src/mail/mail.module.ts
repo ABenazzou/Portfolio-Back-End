@@ -13,7 +13,8 @@ import { ConfigService } from '@nestjs/config';
       useFactory: async (config: ConfigService) => ({
         transport: {
           host: config.get('MAIL_HOST'),
-          secure: true,
+          secure: false,
+          tls: { rejectUnauthorized: false },
           auth: {
             user: config.get('MAIL_USER'),
             pass: config.get('MAIL_PASSWORD'),
@@ -34,7 +35,7 @@ import { ConfigService } from '@nestjs/config';
     }),
   ],
 
-exports: [MailService],
+  exports: [MailService],
   controllers: [MailController],
 })
 export class MailModule { }

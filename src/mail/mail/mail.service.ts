@@ -7,7 +7,10 @@ export class MailService {
     constructor(private mailerService: MailerService) { }
 
     async sendEmail(sendEmailDto: SendEmailDto) {
-
+        console.log(sendEmailDto);
+        console.log(process.env.MAIL_PASSWORD);
+        console.log(process.env.MAIL_EMAIL);
+        console.log(process.env.MAIL_HOST);
         if (sendEmailDto.isCopy) {
             await this.mailerService.sendMail({
                 to: 'adnanbenzo194@gmail.com',

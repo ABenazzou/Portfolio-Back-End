@@ -24,6 +24,9 @@ export class Project {
   @Column()
   visits_count: number;
 
+  @Column()
+  github_link: string;
+
   @ManyToMany(() => Technology, (technology) => technology.projects, {
     onDelete: 'CASCADE',
   })

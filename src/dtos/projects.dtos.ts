@@ -12,6 +12,10 @@ export class CreateProjectDto {
   @IsNotEmpty()
   @IsNumber()
   visits_count: number;
+
+  @IsNotEmpty()
+  @IsString()
+  project_link: string;
 }
 
 export class UpdateProjectDto {
@@ -26,4 +30,8 @@ export class UpdateProjectDto {
   @IsNotEmpty()
   @IsNumber()
   visits_count: number;
+
+  @IsNotEmpty()
+  @IsString()
+  project_link: string;
 }

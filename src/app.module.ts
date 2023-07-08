@@ -11,6 +11,7 @@ import { ProjectsModule } from './projects/projects.module';
 import { AuthModule } from './auth/auth.module';
 import { AdminsModule } from './admins/admins.module';
 import { BiographyModule } from './biography/biography.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { BiographyModule } from './biography/biography.module';
     AuthModule,
     AdminsModule,
     BiographyModule,
+    MailModule,
   ],
   controllers: [],
   providers: [],

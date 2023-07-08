@@ -12,6 +12,7 @@ export class MailService {
         console.log(this.configService.get('MAIL_PASSWORD'));
         console.log(this.configService.get('MAIL_USER'));
         console.log(this.configService.get('MAIL_HOST'));
+        console.log(this.configService.get('DATABASE_HOST'));
         if (sendEmailDto.isCopy) {
             await this.mailerService.sendMail({
                 to: 'adnanbenzo194@gmail.com',

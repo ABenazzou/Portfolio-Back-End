@@ -7,7 +7,7 @@ import { MailController } from './mail/mail.controller';
 import { ConfigService } from '@nestjs/config';
 
 @Module({
-  providers: [MailService, ConfigService],
+  providers: [MailService],
   imports: [
     MailerModule.forRootAsync({
       useFactory: async (config: ConfigService) => ({

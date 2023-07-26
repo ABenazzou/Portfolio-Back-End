@@ -15,6 +15,9 @@ export class Resume {
   @Column()
   pdf: string;
 
+  @Column()
+  lastUpdated: string;
+
   @OneToOne(() => Domain, (domain) => domain.resume, {
     onDelete: 'CASCADE',
   })

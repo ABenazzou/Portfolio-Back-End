@@ -24,7 +24,7 @@ export class ProjectService {
       order: {
         visits_count: 'DESC',
       },
-      take: 10,
+      take: 8,
     });
   }
 

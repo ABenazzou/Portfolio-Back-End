@@ -15,7 +15,7 @@ export class CreateProjectDto {
 
   @IsNotEmpty()
   @IsString()
-  project_link: string;
+  github_link: string;
 }
 
 export class UpdateProjectDto {
@@ -30,8 +30,8 @@ export class UpdateProjectDto {
   @IsNotEmpty()
   @IsNumber()
   visits_count: number;
-
+ 
   @IsNotEmpty()
   @IsString()
-  project_link: string;
+  github_link: string;
 }

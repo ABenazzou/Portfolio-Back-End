@@ -1,10 +1,12 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsEmpty } from 'class-validator';
 
 export class CreateBiographyDto {
   @IsNumber()
+  @IsEmpty()
   start_year: number;
 
   @IsNumber()
+  @IsEmpty()
   end_year: number;
 
   @IsNotEmpty()
@@ -13,9 +15,11 @@ export class CreateBiographyDto {
 }
 export class UpdateBiographyDto {
   @IsNumber()
+  @IsEmpty()
   start_year: number;
 
   @IsNumber()
+  @IsEmpty()
   end_year: number;
 
   @IsNotEmpty()

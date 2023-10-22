@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { AdminsModule } from './admins/admins.module';
 import { BiographyModule } from './biography/biography.module';
 import { MailModule } from './mail/mail.module';
+import { MaintenanceModule } from './maintenance/maintenance.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { MailModule } from './mail/mail.module';
     AdminsModule,
     BiographyModule,
     MailModule,
+    MaintenanceModule,
   ],
   controllers: [],
   providers: [],

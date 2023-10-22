@@ -45,8 +45,12 @@ export class SectionController {
   @Get('type/:type')
   getSectionsByType(
     @Param('type', new ParseEnumPipe(section_type)) type: section_type,
+    @Query('displayable') displayable: string
   ) {
-    return this.sectionService.getSectionByType(type);
+    if(displayable == undefined){
+      return this.sectionService.getSectionByType(type);
+    }
+    return this.sectionService.getDisplayableSectionsByType(type);
   }
 
   @Get(':id')

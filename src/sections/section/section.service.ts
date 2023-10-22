@@ -23,6 +23,15 @@ export class SectionService {
     });
   }
 
+  getDisplayableSectionsByType(sectionType: section_type) {
+    return this.sectionRepository.find({
+      where: {
+        is_displayed: true,
+        type: sectionType
+      },
+    });
+  }
+
   getSectionByType(sectionType: section_type) {
     return this.sectionRepository.find({
       where: {

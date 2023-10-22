@@ -71,9 +71,10 @@ export class ProjectController {
   @Patch(':id')
   async addProjectTechnologyOrDomain(
     @Param('id', ParseIntPipe) id: number,
-    @Query('technologyId', ParseIntPipe) technologyId: number,
-    @Query('domainId', ParseIntPipe) domainId: number,
+    @Query('technologyId') technologyId: number,
+    @Query('domainId') domainId: number,
   ) {
+
     if (domainId !== undefined && technologyId !== undefined) {
       try {
         await this.domainService.getDomainById(domainId);

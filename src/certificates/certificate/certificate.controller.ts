@@ -76,7 +76,7 @@ export class CertificateController {
   @Patch(':id')
   async addCertificateDomain(
     @Param('id', ParseIntPipe) id: number,
-    @Query('domainId', ParseIntPipe) domainId: number,
+    @Query('domainId') domainId: number,
   ) {
     return this.certificateService.addCertificateDomain(id, domainId);
   }

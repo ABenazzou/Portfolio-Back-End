@@ -96,6 +96,16 @@ export class ProjectService {
     }
     throw new HttpException('Domain not found', HttpStatus.NOT_FOUND);
   }
+
+  async updateProjectVisits(id: number) {
+    const project = await this.getProjectById(id);
+    if (project) {
+      project.visits_count ++;
+      await this.projectRepository.save(project);
+      return this.getProjectById(id);
+    }
+    throw new HttpException('Domain not found', HttpStatus.NOT_FOUND);
+  }
   /*
   By Id is faster due to lookup 
   async addProjectDomain(id: number, domainName: string) {

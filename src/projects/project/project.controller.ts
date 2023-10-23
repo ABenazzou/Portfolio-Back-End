@@ -90,6 +90,10 @@ export class ProjectController {
     } else if (technologyId !== undefined) {
       return this.projectService.addProjectTechnology(id, technologyId);
     }
-    throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    else{
+      // both undefined
+      return this.projectService.updateProjectVisits(id);
+    }
+    // throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
   }
 }

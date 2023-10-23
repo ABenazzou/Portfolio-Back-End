@@ -29,6 +29,7 @@ describe('ProjectController', () => {
             deleteProject: jest.fn(),
             addProjectTechnology: jest.fn(),
             addProjectDomain: jest.fn(),
+            updateProjectVisits: jest.fn()
           },
         },
         {

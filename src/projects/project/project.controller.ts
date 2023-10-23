@@ -74,7 +74,6 @@ export class ProjectController {
     @Query('technologyId') technologyId: number,
     @Query('domainId') domainId: number,
   ) {
-
     if (domainId !== undefined && technologyId !== undefined) {
       try {
         await this.domainService.getDomainById(domainId);
@@ -89,11 +88,16 @@ export class ProjectController {
       return this.projectService.addProjectDomain(id, domainId);
     } else if (technologyId !== undefined) {
       return this.projectService.addProjectTechnology(id, technologyId);
-    }
-    else{
+    } else {
       // both undefined
-      return this.projectService.updateProjectVisits(id);
+      // return this.projectService.updateProjectVisits(id);
     }
+    throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+  }
+
+  @Patch('/visit/:id')
+  async updateVisits(@Param('id', ParseIntPipe) id: number) {
+    return this.projectService.updateProjectVisits(id);
     // throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
   }
 }
